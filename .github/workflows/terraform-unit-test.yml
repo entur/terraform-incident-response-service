@@ -1,0 +1,29 @@
+name: Terraform Unit Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - ready_for_review
+
+jobs:
+  tf-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Read .tool-versions
+        uses: paulo-ferraz-oliveira/parse-tool-versions@v1
+        id: versions
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: ${{ steps.versions.outputs.terraform }}
+      - name: Terraform init
+        run: terraform init
+      - name: Terraform unit tests
+        run: terraform test -verbose

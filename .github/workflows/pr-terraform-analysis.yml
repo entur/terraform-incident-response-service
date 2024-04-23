@@ -1,0 +1,17 @@
+name: Analyze and validate infrastructure code and docs
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - ready_for_review
+
+jobs:
+  tf-tests:
+    uses: entur/gh-workflows/.github/workflows/pr-tests-terraform.yml@main
+    with:
+      module_dirs: '["./"]'
+      tf_version: 1.1.7

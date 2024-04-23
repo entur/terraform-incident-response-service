@@ -1,0 +1,8 @@
+name: "test-service"
+description: "Service for testing terraform module for provisioning services in PagerDuty"
+team: "awesome"
+business-service: "core"
+service-dependencies:
+  - name: "test-business-service"
+    type: "business-service"
+  - "test-technical-service"
