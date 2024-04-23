@@ -60,6 +60,16 @@ run "service_is_created_with_default_settings" {
     condition     = pagerduty_service.service.alert_grouping_parameters[0].type == "intelligent"
     error_message = format("Alert grouping parameters is incorrect. Expected %s but was %s", "intelligent", pagerduty_service.service.alert_grouping_parameters[0].type)
   }
+
+  assert {
+    condition     = pagerduty_service.service.auto_pause_notifications_parameters[0].enabled == true
+    error_message = "Auto pause notifications parameters is not enabled."
+  }
+
+  assert {
+    condition     = pagerduty_service.service.auto_pause_notifications_parameters[0].timeout == 300
+    error_message = "Auto pause notifications parameters is incorrect."
+  }
 }
 
 run "service_escalates_to_team_policy" {
